@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>小説練習アプリ</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f8ff;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 80%;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+            color: #007bff;
+        }
+        .output {
+            margin: 20px 0;
+            font-size: 20px;
+            line-height: 1.6;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .ad-banner {
+            background-color: #e0e0e0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
+            font-size: 18px;
+            color: #555;
+        }
+        .ad-banner a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .ad-banner a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>小説練習ジェネレーター</h1>
+    <div class="output">
+        <p id="charCount"></p>
+        <p id="situation"></p>
+        <p id="numPeople"></p>
+        <p id="deadline"></p>
+    </div>
+    <button onclick="generateRandom()">ランダム生成</button>
+</div>
+
+<div class="ad-banner">
+    <p>スポンサーリンク: <a href="https://www.example.com" target="_blank">お得な商品はこちら！</a></p>
+</div>
+
+<script>
+    const situations = [
+        "突然の嵐に見舞われる",
+        "不思議な世界に迷い込む",
+        "昔の友人と再会する",
+        "謎のメッセージを受け取る",
+        "タイムトラベルをする"
+    ];
+
+    function getRandomInt(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+
+    function generateRandom() {
+        const charCount = getRandomInt(1, 5) * 1000;
+        const situation = situations[getRandomInt(0, situations.length - 1)];
+        const weightedPeople = [1, 2, 3, 1, 2, 3, 1, 2, 3, 4, 5];
+        const numPeople = weightedPeople[getRandomInt(0, weightedPeople.length - 1)];
+        const deadlineDays = getRandomInt(5, 30);
+        const today = new Date();
+        const deadlineDate = new Date(today.getTime() + deadlineDays * 24 * 60 * 60 * 1000);
+        const formattedDeadline = deadlineDate.toLocaleDateString('ja-JP');
+
+        document.getElementById('charCount').textContent = `文字数: ${charCount}`;
+        document.getElementById('situation').textContent = `シチュエーション: ${situation}`;
+        document.getElementById('numPeople').textContent = `登場人物の人数: ${numPeople}`;
+        document.getElementById('deadline').textContent = `締め切り: ${formattedDeadline}`;
+    }
+</script>
+
+</body>
+</html>
